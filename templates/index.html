@@ -1,0 +1,84 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login Demo</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    />
+</head>
+<body>
+
+    <div class="page">
+
+        <div class="login-card">
+
+                <img
+                    src="{{ url_for('static', filename='logo.png') }}"
+                    class="logo"
+                    alt="logo"
+                />
+
+            <h1>Log in</h1>
+
+            <form id="loginForm">
+
+                <label>Username or email</label>
+
+                <input
+                    type="text"
+                    placeholder=""
+                    required
+                />
+                 <br>
+                <label>Password</label>
+                
+                <input
+                    type="text"
+                    placeholder=""
+                    required
+                />
+
+                <a href="#" class="phone-link">
+                    Use phone number instead
+                </a>
+
+                <button type="submit">
+                    Next
+                </button>
+
+            </form>
+
+            <div class="divider">
+                <span></span>
+                <p>OR</p>
+                <span></span>
+            </div>
+
+            <button class="google-btn">
+                <div class="google-left">
+                    G
+                </div>
+
+                <div class="google-text">
+                    Continue with Google
+                </div>
+            </button>
+
+        </div>
+
+        <div class="signup">
+            New here?
+            <a href="#">Sign up</a>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

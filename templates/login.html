@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Poetry Blog</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #000;
+    color: #e7e9ea;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    border-left: 1px solid #2f3336;
+    border-right: 1px solid #2f3336;
+    min-height: 100vh;
+}
+
+header {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #2f3336;
+}
+
+.section {
+    padding: 15px;
+    border-bottom: 1px solid #2f3336;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    background: #111;
+    color: white;
+    border: 1px solid #2f3336;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+button {
+    background: #1d9bf0;
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    margin-top: 8px;
+    border-radius: 6px;
+}
+
+button:hover {
+    background: #1a8cd8;
+}
+
+.poem {
+    margin-top: 10px;
+    padding: 10px;
+    background: #111;
+    border-radius: 8px;
+}
+
+.like {
+    color: #71767b;
+    font-size: 14px;
+}
+
+.small {
+    color: #71767b;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>🪶 Poetry Feed</header>
+
+<!-- DEBUG (you can remove later) -->
+<div class="section">
+    <div class="small">
+        Logged in: {{ current_user.is_authenticated }}
+    </div>
+</div>
+
+<!-- 📝 POST BOX (ALWAYS SHOWN) -->
+<div class="section">
+
+<h3>Write a Poem</h3>
+
+<form action="/add_poem" method="POST">
+    <textarea name="content" placeholder="Write your poem..." required></textarea>
+    <button type="submit">Post Poem</button>
+</form>
+
+{% if not current_user.is_authenticated %}
+<p class="small">⚠️ You are not logged in — but posting is still enabled for testing.</p>
+{% endif %}
+
+</div>
+
+<!-- 📜 FEED -->
+<div class="section">
+
+<h3>Feed</h3>
+
+{% if poems and poems|length > 0 %}
+
+    {% for poem in poems %}
+        <div class="poem">
+            <p>{{ poem.content }}</p>
+
+            <div class="like">
+                ❤️ {{ poem.likes }}
+                | <a href="/like/{{ poem.id }}">Like</a>
+            </div>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <p class="small">No poems yet — post your first one above 👆</p>
+{% endif %}
+
+</div>
+
+</div>
+
+</body>
+</html>
