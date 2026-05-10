@@ -23,5 +23,4 @@ def send():
         return jsonify({"message": "Failed to send email"}), 500
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# IMPORTANT: no app.run() needed for Render
